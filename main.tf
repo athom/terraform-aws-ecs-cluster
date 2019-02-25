@@ -194,6 +194,7 @@ resource "aws_autoscaling_group" "container_instance" {
 
   health_check_grace_period = "${var.health_check_grace_period}"
   health_check_type         = "EC2"
+  desired_capacity          = "${var.desired_capacity}"
   termination_policies      = ["OldestLaunchConfiguration", "Default"]
   min_size                  = "${var.min_size}"
   max_size                  = "${var.max_size}"

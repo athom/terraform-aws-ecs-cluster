@@ -35,6 +35,7 @@ module "container_service_cluster" {
   root_block_device_size = "10"
 
   health_check_grace_period = "600"
+  desired_capacity          = "1"
   min_size                  = "0"
   max_size                  = "1"
 
@@ -80,7 +81,7 @@ resource "aws_security_group_rule" "container_instance_https_egress" {
 
 This module creates an Auto Scaling group for the ECS cluster. By default, there are no Auto Scaling policies associated with this group. In order for Auto Scaling to function, you must define `aws_autoscaling_policy` resources and associate them with the `container_instance_autoscaling_group_name` module output.
 
-See this [article](https://segment.com/blog/when-aws-autoscale-doesn-t/) for more information on Auto Scaling, and below for example policies.
+See this [article](https://segment.com/blog/when-aws-autoscale-doesn-t/) for more information on Auto Scaling, and below for example policies. 
 
 ```hcl
 resource "aws_autoscaling_policy" "container_instance_cpu_reservation" {
@@ -143,6 +144,7 @@ resource "aws_autoscaling_policy" "container_instance_memory_reservation" {
 - `cloud_config_content` - user data supplied to launch configuration for cluster nodes
 - `cloud_config_content_type` - the type of configuration being passed in as user data, see [EC2 user guide](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonLinuxAMIBasics.html#CloudInit) for a list of possible types (default: `text/cloud-config`)
 - `health_check_grace_period` - Time in seconds after container instance comes into service before checking health (default: `600`)
+- `desired_capacity` - Number of EC2 instances that should be running in cluster (default: `1`)
 - `min_size` - Minimum number of EC2 instances in cluster (default: `0`)
 - `max_size` - Maximum number of EC2 instances in cluster (default: `1`)
 - `enabled_metrics` - A list of metrics to gather for the cluster
